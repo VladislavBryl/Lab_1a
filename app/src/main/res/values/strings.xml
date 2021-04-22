@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name"> Lab 1a </string>
+
+    <string name="title"> Лабораторна робота 1а </string>
+    <string name="description"> Факторизація числа методом Ферма </string>
+    <string name="input_n_hint"> Введіть натуральне число </string>
+    <string name="button_count"> Обчислити </string>
+
+</resources>
