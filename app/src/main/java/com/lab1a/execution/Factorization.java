@@ -1,5 +1,7 @@
 package com.lab1a.execution;
 
+import com.lab1a.utils.exception.TimeExceededException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,16 +9,26 @@ import java.util.List;
 // Факторизація числа методом Ферма
 public class Factorization {
 
-    public static Long[] factorize(long n) {
+    private long time0;
+
+    public Long[] factorize(long n) throws TimeExceededException {
+
+        this.time0 = System.nanoTime();
 
         List<Long> multipliers = new ArrayList<>();
 
         while (n % 2 == 0) {
+
             multipliers.add(2L);
             n /= 2;
+
+            long time = System.nanoTime() - this.time0;
+
+            if (time >= 3000000000L) throw new TimeExceededException();
+
         }
 
-        long[] sqrts = Factorization.getSumOfSquares(n);
+        long[] sqrts = this.getSumOfSquares(n);
         multipliers.add(Math.abs(sqrts[0] + sqrts[1]));
         multipliers.add(Math.abs(sqrts[0] - sqrts[1]));
 
@@ -24,7 +36,7 @@ public class Factorization {
 
     }
 
-    private static long[] getSumOfSquares(long n) {
+    private long[] getSumOfSquares(long n) throws TimeExceededException {
 
         double x, y;
 
@@ -32,8 +44,14 @@ public class Factorization {
         y = Math.pow(x, 2) - n;
 
         while (Math.sqrt(y) != Math.ceil(Math.sqrt(y))) {
+
             x++;
             y = Math.pow(x, 2) - n;
+
+            long time = System.nanoTime() - this.time0;
+
+            if (time >= 3000000000L) throw new TimeExceededException();
+
         }
 
         return new long[]{(long) x, (long) Math.sqrt(y)};
